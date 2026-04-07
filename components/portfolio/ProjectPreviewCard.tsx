@@ -21,12 +21,14 @@ export function ProjectPreviewCard({ project, compact = false }: ProjectPreviewC
         </div>
       </div>
       <div className="p-4">
-        <div className={`relative overflow-hidden rounded-[1.35rem] border border-neutral-300/80 bg-gradient-to-br dark:border-white/10 ${project.preview.accent} ${project.preview.glow} p-5`}>
-          <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">{project.preview.eyebrow}</p>
+        <div
+          className={`relative overflow-hidden rounded-[1.35rem] border border-neutral-300/80 bg-neutral-900 bg-gradient-to-br dark:border-white/10 ${project.preview.accent} ${project.preview.glow} p-5`}
+        >
+          <p className="text-[11px] uppercase tracking-[0.22em] text-white/70">{project.preview.eyebrow}</p>
           <h4 className={`mt-3 font-semibold text-white ${compact ? 'text-lg leading-8' : 'text-2xl leading-9'}`}>
             {project.preview.headline}
           </h4>
-          <p className="mt-3 text-sm leading-7 text-white/70">{project.preview.subtext}</p>
+          <p className="mt-3 text-sm leading-7 text-white/85">{project.preview.subtext}</p>
         </div>
       </div>
     </div>
