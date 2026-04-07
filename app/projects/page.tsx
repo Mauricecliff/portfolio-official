@@ -25,6 +25,10 @@ export default function ProjectsPage() {
           <motion.article
             key={project.title}
             whileHover={{ y: -8 }}
+            initial={{ opacity: 0, y: project.featured ? 34 : -34 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, ease: 'easeOut' }}
             className={`overflow-hidden rounded-[2rem] border ${
               project.featured ? 'border-amber-300/20 bg-amber-300/[0.06]' : 'border-white/10 bg-white/5'
             }`}

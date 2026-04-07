@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Github, Linkedin, Menu, X } from 'lucide-react';
+import { Github, Linkedin, Menu, Phone, X } from 'lucide-react';
 import { useState } from 'react';
 
 const navigation = [
@@ -65,6 +65,14 @@ export function Navbar() {
           >
             <Linkedin className="h-4 w-4" />
           </a>
+          <a
+            href="tel:+2347033554866"
+            className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/75 transition hover:bg-white/10 hover:text-white md:inline-flex"
+            aria-label="Phone number"
+          >
+            <Phone className="h-3.5 w-3.5" />
+            +2347033554866
+          </a>
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
@@ -85,6 +93,12 @@ export function Navbar() {
             className="overflow-hidden md:hidden"
           >
             <div className="mt-4 grid gap-2 border-t border-white/10 pt-4">
+              <a
+                href="tel:+2347033554866"
+                className="rounded-2xl bg-white/5 px-4 py-3 text-left text-sm text-white/75"
+              >
+                Call: +2347033554866
+              </a>
               {navigation.map((item) => (
                 <Link
                   key={item.href}
