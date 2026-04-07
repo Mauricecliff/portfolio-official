@@ -16,9 +16,9 @@ export default function AboutPage() {
         <ExperienceSection items={experience} />
         <div className="space-y-6">
           <SkillsSection categories={skills} />
-          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7">
+          <div className="rounded-[2rem] border border-neutral-300/70 bg-white/70 p-7 dark:border-white/10 dark:bg-white/5">
             <p className="text-sm uppercase tracking-[0.25em] text-emerald-300">AI-assisted workflow</p>
-            <p className="mt-4 text-sm leading-7 text-white/70">
+            <p className="mt-4 text-sm leading-7 text-neutral-700 dark:text-white/70">
               I use modern AI tooling to accelerate refactors, improve debugging speed, and support architecture decisions while keeping product quality and maintainability as top priorities.
             </p>
           </div>
