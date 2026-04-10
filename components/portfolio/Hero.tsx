@@ -7,25 +7,26 @@ import { useEffect, useState } from 'react';
 export function Hero() {
   const heroTitle = 'I build high-performance frontend experiences for fintech, e-commerce, and modern product teams.';
   const [typedTitle, setTypedTitle] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingMode, setTypingMode] = useState<'typing' | 'deleting'>('typing');
 
   useEffect(() => {
+    const isDeleting = typingMode === 'deleting';
     const typingSpeed = isDeleting ? 42 : 78;
     const pauseAfterTyping = 1800;
     const pauseAfterDeleting = 550;
 
     const isFullyTyped = typedTitle.length === heroTitle.length;
     const isFullyDeleted = typedTitle.length === 0;
-    const delay = isFullyTyped ? pauseAfterTyping : isFullyDeleted && isDeleting ? pauseAfterDeleting : typingSpeed;
+    const delay = isFullyTyped && !isDeleting ? pauseAfterTyping : isFullyDeleted && isDeleting ? pauseAfterDeleting : typingSpeed;
 
     const timeout = window.setTimeout(() => {
-      if (isFullyTyped) {
-        setIsDeleting(true);
+      if (isFullyTyped && !isDeleting) {
+        setTypingMode('deleting');
         return;
       }
 
       if (isFullyDeleted && isDeleting) {
-        setIsDeleting(false);
+        setTypingMode('typing');
         return;
       }
 
@@ -34,7 +35,7 @@ export function Hero() {
     }, delay);
 
     return () => window.clearTimeout(timeout);
-  }, [heroTitle, isDeleting, typedTitle]);
+  }, [heroTitle, typedTitle, typingMode]);
 
   return (
     <motion.section
