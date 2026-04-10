@@ -2,8 +2,40 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 export function Hero() {
+  const heroTitle = 'I build high-performance frontend experiences for fintech, e-commerce, and modern product teams.';
+  const [typedTitle, setTypedTitle] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const typingSpeed = isDeleting ? 42 : 78;
+    const pauseAfterTyping = 1800;
+    const pauseAfterDeleting = 550;
+
+    const isFullyTyped = typedTitle.length === heroTitle.length;
+    const isFullyDeleted = typedTitle.length === 0;
+    const delay = isFullyTyped ? pauseAfterTyping : isFullyDeleted && isDeleting ? pauseAfterDeleting : typingSpeed;
+
+    const timeout = window.setTimeout(() => {
+      if (isFullyTyped) {
+        setIsDeleting(true);
+        return;
+      }
+
+      if (isFullyDeleted && isDeleting) {
+        setIsDeleting(false);
+        return;
+      }
+
+      const nextLength = typedTitle.length + (isDeleting ? -1 : 1);
+      setTypedTitle(heroTitle.slice(0, nextLength));
+    }, delay);
+
+    return () => window.clearTimeout(timeout);
+  }, [heroTitle, isDeleting, typedTitle]);
+
   return (
     <motion.section
       className="mb-10 grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center"
@@ -18,7 +50,8 @@ export function Hero() {
         </div>
         <div className="space-y-4">
           <h1 className="max-w-4xl text-4xl font-semibold leading-tight md:text-6xl">
-            I build high-performance frontend experiences for fintech, e-commerce, and modern product teams.
+            {typedTitle}
+            <span className="ml-1 inline-block h-[1em] w-[0.08em] animate-pulse bg-current align-[-0.12em]" aria-hidden="true" />
           </h1>
           <p className="max-w-3xl text-base leading-8 text-neutral-700 dark:text-white/72 md:text-lg">
             Frontend engineer with 6+ years of experience shipping scalable web applications with React, Next.js,
