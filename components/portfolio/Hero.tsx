@@ -7,20 +7,34 @@ import { useEffect, useState } from 'react';
 export function Hero() {
   const heroTitle = 'I build high-performance frontend experiences for fintech, e-commerce, and modern product teams.';
   const [typedTitle, setTypedTitle] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    let index = 0;
-    const interval = window.setInterval(() => {
-      index += 1;
-      setTypedTitle(heroTitle.slice(0, index));
+    const typingSpeed = isDeleting ? 42 : 78;
+    const pauseAfterTyping = 1800;
+    const pauseAfterDeleting = 550;
 
-      if (index >= heroTitle.length) {
-        window.clearInterval(interval);
+    const isFullyTyped = typedTitle.length === heroTitle.length;
+    const isFullyDeleted = typedTitle.length === 0;
+    const delay = isFullyTyped ? pauseAfterTyping : isFullyDeleted && isDeleting ? pauseAfterDeleting : typingSpeed;
+
+    const timeout = window.setTimeout(() => {
+      if (isFullyTyped) {
+        setIsDeleting(true);
+        return;
       }
-    }, 28);
 
-    return () => window.clearInterval(interval);
-  }, [heroTitle]);
+      if (isFullyDeleted && isDeleting) {
+        setIsDeleting(false);
+        return;
+      }
+
+      const nextLength = typedTitle.length + (isDeleting ? -1 : 1);
+      setTypedTitle(heroTitle.slice(0, nextLength));
+    }, delay);
+
+    return () => window.clearTimeout(timeout);
+  }, [heroTitle, isDeleting, typedTitle]);
 
   return (
     <motion.section
